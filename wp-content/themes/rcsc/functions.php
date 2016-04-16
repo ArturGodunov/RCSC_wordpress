@@ -43,16 +43,24 @@ function add_scripts() {
 add_action('wp_footer', 'add_scripts');
 
 /**
- * Include templates
+ * Register our sidebars and widgetized areas.
  */
-//function flats_template( $template ) {
-//
-//    if( is_page('contacts') ){
-//        if ( $new_template = locate_template( array( 'contacts.php' ) ) )
-//            return $new_template ;
-//    }
-//
-//    return $template;
-//}
-//add_filter('template_include', 'flats_template');
+function footer_phone_widget_init() {
+
+    register_sidebar( array(
+        'name'          => 'Footer phone',
+        'id'            => 'footer_phone',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '',
+        'after_title'   => '',
+    ) );
+
+}
+add_action( 'widgets_init', 'footer_phone_widget_init' );
+
+/**
+ * Enabling Support for Post Thumbnails
+ */
+add_theme_support( 'post-thumbnails' );
 

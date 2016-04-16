@@ -682,6 +682,7 @@ h3.xlg_m_b {
 .speakers_img {
   display: inline-block;
   max-width: 100%;
+  height: auto;
 }
 
 .speakers_sign {

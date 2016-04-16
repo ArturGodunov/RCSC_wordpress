@@ -71,88 +71,34 @@
     <section data-scroll-section="1" class="speakers">
         <h3>Конгресс уже рекомендуют</h3>
         <ul class="speakers_list_img clr">
-            <li class="speakers_item_img">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/congress_1.png" class="speakers_img">
-                <div class="speakers_sign">Тарас Табаков</div>
-            </li>
-            <li class="speakers_item_img">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/congress_2.png" class="speakers_img">
-                <div class="speakers_sign">Тарас Табаков</div>
-            </li>
-            <li class="speakers_item_img active">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/congress_3.png" class="speakers_img">
-                <div class="speakers_sign">Тарас Табаков</div>
-            </li>
-            <li class="speakers_item_img">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/congress_4.png" class="speakers_img">
-                <div class="speakers_sign">Тарас Табаков</div>
-            </li>
-            <li class="speakers_item_img">
-                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/congress_5.png" class="speakers_img">
-                <div class="speakers_sign">Тарас Табаков</div>
-            </li>
+            <?php
+            global $query_string;
+            query_posts($query_string . "&order=ASC");
+            $count_post = 0;
+            ?>
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <?php if ( in_category('Speakers') ) { ?>
+                    <?php ($count_post == 2) ? $class_active = 'active' : $class_active = ''; ?>
+                    <li class="speakers_item_img <?php echo $class_active; ?>">
+                        <?php the_post_thumbnail(array(252, 252), array('class' => 'speakers_img')); ?>
+                        <div class="speakers_sign"><?php the_title(); ?></div>
+                    </li>
+                <?php } ?>
+                <?php $count_post++; ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </ul>
         <ul class="speakers_list_text">
-            <li class="speakers_item_text">
-                <div class="speakers_name">Тарас Табаков</div>
-                <div class="speakers_post">Управляющий ТРЦ «Радуга Парк»</div>
-                <div class="speakers_text">
-                    «Формат единого Конгресса для Управляющих Торговыми центрами безусловно актуален и необходим!
-                    Ведь на сегодняшний момент нет методики управления, которую можно одинаково успешно использовать для любого
-                    торгового центра. Именно поэтому основная задача мероприятия «Shopping Center Manager’s Congress» – создать
-                    платформу, где можно будет обмениваться знаниями и систематизировать накопленный опыт. И если в
-                    дальнейшем наша или другая управляющая компания сможет применить полученные знания на практике и
-                    оптимизировать работу своего ТЦ, – значит задача конгресса выполнена».
-                </div>
-            </li>
-            <li class="speakers_item_text">
-                <div class="speakers_name">Тарас Табаков</div>
-                <div class="speakers_post">Управляющий ТРЦ «Радуга Парк»</div>
-                <div class="speakers_text">
-                    «Формат единого Конгресса для Управляющих Торговыми центрами безусловно актуален и необходим!
-                    Ведь на сегодняшний момент нет методики управления, которую можно одинаково успешно использовать для любого
-                    торгового центра. Именно поэтому основная задача мероприятия «Shopping Center Manager’s Congress» – создать
-                    платформу, где можно будет обмениваться знаниями и систематизировать накопленный опыт. И если в
-                    дальнейшем наша или другая управляющая компания сможет применить полученные знания на практике и
-                    оптимизировать работу своего ТЦ, – значит задача конгресса выполнена».
-                </div>
-            </li>
-            <li class="speakers_item_text">
-                <div class="speakers_name">Тарас Табаков</div>
-                <div class="speakers_post">Управляющий ТРЦ «Радуга Парк»</div>
-                <div class="speakers_text">
-                    «Формат единого Конгресса для Управляющих Торговыми центрами безусловно актуален и необходим!
-                    Ведь на сегодняшний момент нет методики управления, которую можно одинаково успешно использовать для любого
-                    торгового центра. Именно поэтому основная задача мероприятия «Shopping Center Manager’s Congress» – создать
-                    платформу, где можно будет обмениваться знаниями и систематизировать накопленный опыт. И если в
-                    дальнейшем наша или другая управляющая компания сможет применить полученные знания на практике и
-                    оптимизировать работу своего ТЦ, – значит задача конгресса выполнена».
-                </div>
-            </li>
-            <li class="speakers_item_text">
-                <div class="speakers_name">Тарас Табаков</div>
-                <div class="speakers_post">Управляющий ТРЦ «Радуга Парк»</div>
-                <div class="speakers_text">
-                    «Формат единого Конгресса для Управляющих Торговыми центрами безусловно актуален и необходим!
-                    Ведь на сегодняшний момент нет методики управления, которую можно одинаково успешно использовать для любого
-                    торгового центра. Именно поэтому основная задача мероприятия «Shopping Center Manager’s Congress» – создать
-                    платформу, где можно будет обмениваться знаниями и систематизировать накопленный опыт. И если в
-                    дальнейшем наша или другая управляющая компания сможет применить полученные знания на практике и
-                    оптимизировать работу своего ТЦ, – значит задача конгресса выполнена».
-                </div>
-            </li>
-            <li class="speakers_item_text">
-                <div class="speakers_name">Тарас Табаков</div>
-                <div class="speakers_post">Управляющий ТРЦ «Радуга Парк»</div>
-                <div class="speakers_text">
-                    «Формат единого Конгресса для Управляющих Торговыми центрами безусловно актуален и необходим!
-                    Ведь на сегодняшний момент нет методики управления, которую можно одинаково успешно использовать для любого
-                    торгового центра. Именно поэтому основная задача мероприятия «Shopping Center Manager’s Congress» – создать
-                    платформу, где можно будет обмениваться знаниями и систематизировать накопленный опыт. И если в
-                    дальнейшем наша или другая управляющая компания сможет применить полученные знания на практике и
-                    оптимизировать работу своего ТЦ, – значит задача конгресса выполнена».
-                </div>
-            </li>
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <?php if ( in_category('Speakers') ) { ?>
+                    <li class="speakers_item_text">
+                        <div class="speakers_name"><?php the_title(); ?></div>
+                        <div class="speakers_post"><?php get_post_custom_values('Должность'); ?> </div>
+                        <div class="speakers_text"><?php the_content(); ?></div>
+                    </li>
+                <?php } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </ul>
     </section>
 
