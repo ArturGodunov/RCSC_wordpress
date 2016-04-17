@@ -19,7 +19,7 @@
     </nav>
 </aside>
 
-<div class="main">
+<footer class="main">
     <header data-scroll-section="top" class="header">
         <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/header_logo.png" alt="RCSC - Российский Совет Торговых Центров" class="header_logo">
         <h1 class="header_title">SHOPPING CENTER MANAGER’s Congress</h1>
@@ -333,15 +333,20 @@
             <?php endif; ?>
         </ul>
     </section>
+
     <footer data-scroll-section="blank" class="footer">
         <h3 class="xlg_m_b text_white">Присоединяйтесь к Shopping Center Manager’s Congress</h3>
-        <form novalidate class="form">
-            <input type="text" name="name" placeholder="Имя" data-requied class="input input__name">
-            <input type="text" name="email" placeholder="Email" data-requied class="input input__email">
-            <input type="text" name="phone" placeholder="Телефон" data-requied class="input input__phone">
-            <button type="submit" class="btn">ПРИНЯТЬ УЧАСТИЕ</button>
-        </form>
+        <?php echo do_shortcode('[contact-form-7 id="101" title="Contact form 1"]'); ?>
     </footer>
-</div>
+
+<!--    <footer data-scroll-section="blank" class="footer">-->
+<!--        <h3 class="xlg_m_b text_white">Присоединяйтесь к Shopping Center Manager’s Congress</h3>-->
+<!--        <form novalidate class="form">-->
+<!--            <input type="text" name="name" placeholder="Имя" data-requied class="input input__name">-->
+<!--            <input type="text" name="email" placeholder="Email" data-requied class="input input__email">-->
+<!--            <input type="text" name="phone" placeholder="Телефон" data-requied class="input input__phone">-->
+<!--            <button type="submit" class="btn">ПРИНЯТЬ УЧАСТИЕ</button>-->
+<!--        </form>-->
+<!--    </footer>-->
 
 <?php get_footer(); ?>

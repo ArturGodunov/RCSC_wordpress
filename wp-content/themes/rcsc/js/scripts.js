@@ -91,12 +91,12 @@
     }
 
     function validation() {
-        var $form = $('.form');
+        var $form = $('form');
 
         $form
             .on('submit', function() {
-                var $inputEmail = $(this).find('input[name="email"]'),
-                    $inputRequired = $(this).find('[data-requied]');
+                var $inputEmail = $(this).find('.input__email'),
+                    $inputRequired = $(this).find('.data-requied');
 
                 $inputRequired.removeClass('novalid');
 

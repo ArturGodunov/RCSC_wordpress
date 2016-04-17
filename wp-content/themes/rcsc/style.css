@@ -1302,6 +1302,23 @@ h3.xlg_m_b {
   box-shadow: 0 0 0 4px rgba(204, 31, 60, 0.5);
 }
 
+
+/* ------------------------------ Contact form 7 ---------------------------- */
+form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.input{
+  margin-bottom: 20px;
+}
+
+div.wpcf7-mail-sent-ok{
+  display: none !important;
+}
+/* ------------------------------ END Contact form 7 ------------------------*/
+
+
 /*
 ** END FOOTER
 */
