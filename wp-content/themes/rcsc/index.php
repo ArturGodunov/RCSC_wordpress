@@ -77,11 +77,18 @@
             $count_post = 0;
             ?>
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                <?php if ( in_category('Speakers') ) { ?>
+                <?php if ( in_category('Спикеры') ) { ?>
                     <?php ($count_post == 2) ? $class_active = 'active' : $class_active = ''; ?>
                     <li class="speakers_item_img <?php echo $class_active; ?>">
                         <?php the_post_thumbnail(array(252, 252), array('class' => 'speakers_img')); ?>
-                        <div class="speakers_sign"><?php the_title(); ?></div>
+                        <div class="speakers_sign">
+                            <?php
+                            $mykey_values_name_speaker = get_post_custom_values('Имя');
+                            foreach ( $mykey_values_name_speaker as $value ) {
+                                echo $value;
+                            }
+                            ?>
+                        </div>
                     </li>
                 <?php } ?>
                 <?php $count_post++; ?>
@@ -90,10 +97,24 @@
         </ul>
         <ul class="speakers_list_text">
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-                <?php if ( in_category('Speakers') ) { ?>
+                <?php if ( in_category('speakers') ) { ?>
                     <li class="speakers_item_text">
-                        <div class="speakers_name"><?php the_title(); ?></div>
-                        <div class="speakers_post"><?php get_post_custom_values('Должность'); ?> </div>
+                        <div class="speakers_name">
+                            <?php
+                            $mykey_values_name_speaker = get_post_custom_values('Имя');
+                            foreach ( $mykey_values_name_speaker as $value ) {
+                                echo $value;
+                            }
+                            ?>
+                        </div>
+                        <div class="speakers_post">
+                            <?php
+                            $mykey_values_post = get_post_custom_values('Должность');
+                            foreach ( $mykey_values_post as $value ) {
+                                echo $value;
+                            }
+                            ?>
+                        </div>
                         <div class="speakers_text"><?php the_content(); ?></div>
                     </li>
                 <?php } ?>
@@ -159,47 +180,81 @@
     <section data-scroll-section="4" class="cost">
         <h3 class="lg_m_b text_white">СТОИМОСТЬ</h3>
         <div class="cost_table">
-            <div class="cost_table_row clr">
-                <div class="cost_table_col">Что входит в пакет участия</div>
-                <div class="cost_table_col">Стандарт</div>
-                <div class="cost_table_col">Для членов РСТЦ</div>
-                <div class="cost_table_col">от 3-х чел.</div>
-            </div>
-            <div class="cost_table_row clr">
-                <div class="cost_table_col">Эксклюзивный каталог профессиональных<br>управляющих ТЦ</div>
-                <div class="cost_table_col"></div>
-                <div class="cost_table_col"></div>
-                <div class="cost_table_col"></div>
-            </div>
-            <div class="cost_table_row clr">
-                <div class="cost_table_col">Полная программа: Всем блоки<br>+ рабочая мастерская</div>
-                <div class="cost_table_col"></div>
-                <div class="cost_table_col"></div>
-                <div class="cost_table_col"></div>
-            </div>
-            <div class="cost_table_row clr">
-                <div class="cost_table_col">Интенсивный информационный блок,<br>неформальный блок</div>
-                <div class="cost_table_col"></div>
-                <div class="cost_table_col"></div>
-                <div class="cost_table_col"></div>
-            </div>
-            <div class="cost_table_row clr">
-                <div class="cost_table_col">Стоимость пакета</div>
-                <div class="cost_table_col red">42 500 руб.</div>
-                <div class="cost_table_col red">25 000 руб.</div>
-                <div class="cost_table_col red">Скидка 5%</div>
-            </div>
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <?php if ( in_category('cost') ) { ?>
+                    <div class="cost_table_row clr">
+                        <div class="cost_table_col">Что входит в пакет участия</div>
+                        <div class="cost_table_col">Стандарт</div>
+                        <div class="cost_table_col">Для членов РСТЦ</div>
+                        <div class="cost_table_col">от 3-х чел.</div>
+                    </div>
+                    <div class="cost_table_row clr">
+                        <div class="cost_table_col">Эксклюзивный каталог профессиональных<br>управляющих ТЦ</div>
+                        <div class="cost_table_col"></div>
+                        <div class="cost_table_col"></div>
+                        <div class="cost_table_col"></div>
+                    </div>
+                    <div class="cost_table_row clr">
+                        <div class="cost_table_col">Полная программа: Всем блоки<br>+ рабочая мастерская</div>
+                        <div class="cost_table_col"></div>
+                        <div class="cost_table_col"></div>
+                        <div class="cost_table_col"></div>
+                    </div>
+                    <div class="cost_table_row clr">
+                        <div class="cost_table_col">Интенсивный информационный блок,<br>неформальный блок</div>
+                        <div class="cost_table_col"></div>
+                        <div class="cost_table_col"></div>
+                        <div class="cost_table_col"></div>
+                    </div>
+                    <div class="cost_table_row clr">
+                        <div class="cost_table_col">Стоимость пакета</div>
+                        <div class="cost_table_col red">
+                            <?php
+                            $mykey_values_cost_1 = get_post_custom_values('Стандарт');
+                            foreach ( $mykey_values_cost_1 as $value ) {
+                                echo $value;
+                            }
+                            ?>
+                        </div>
+                        <div class="cost_table_col red">
+                            <?php
+                            $mykey_values_cost_2 = get_post_custom_values('Для членов РСТЦ');
+                            foreach ( $mykey_values_cost_2 as $value ) {
+                                echo $value;
+                            }
+                            ?>
+                        </div>
+                        <div class="cost_table_col red">
+                            <?php
+                            $mykey_values_cost_3 = get_post_custom_values('от 3-х чел.');
+                            foreach ( $mykey_values_cost_3 as $value ) {
+                                echo $value;
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </div>
     </section>
 
     <section data-scroll-section="5" class="partners">
         <h3 class="lg_m_b">ПАРТНЕРЫ МЕРОПРИЯТИЯ</h3>
         <ul class="partners_list clr">
-            <li class="partners_item"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/partner_1.png" class="partners_img"></li>
-            <li class="partners_item"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/partner_2.png" class="partners_img"></li>
-            <li class="partners_item"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/partner_3.png" class="partners_img"></li>
-            <li class="partners_item"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/partner_4.png" class="partners_img"></li>
-            <li class="partners_item"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/partner_5.png" class="partners_img"></li>
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <?php if ( get_post_gallery() ) { ?>
+                    <?php
+                    $galery_partners =  get_post_gallery(get_the_ID(), false);
+                    foreach ( $galery_partners['src'] as $src ) {
+                    ?>
+                    <li class="partners_item">
+                        <img src="<?php echo $src; ?>" class="partners_img">
+                    </li>
+                    <?php } ?>
+                <?php } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </ul>
     </section>
 
@@ -207,10 +262,43 @@
         <div id="map" class="place_map place_map__notready"></div>
         <div class="place_text_block">
             <h3 class="lg_m_b text_left">Место проведения</h3>
-            <p class="place_adress">Место проведения уточняется</p>
-            <p class="place_date">25-27 мая 2016</p>
-            <p class="place_time">09:00 – 21:00</p>
-            <p class="place_url">http/ссылка на профиль</p>
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <?php if ( in_category('place') ) { ?>
+                    <p class="place_address">
+                        <?php
+                        $mykey_values_place_address = get_post_custom_values('Место проведения');
+                        foreach ( $mykey_values_place_address as $value ) {
+                            echo $value;
+                        }
+                        ?>
+                    </p>
+                    <p class="place_date">
+                        <?php
+                        $mykey_values_place_date = get_post_custom_values('Дата');
+                        foreach ( $mykey_values_place_date as $value ) {
+                            echo $value;
+                        }
+                        ?>
+                    </p>
+                    <p class="place_time">
+                        <?php
+                        $mykey_values_place_time = get_post_custom_values('Время');
+                        foreach ( $mykey_values_place_time as $value ) {
+                            echo $value;
+                        }
+                        ?>
+                    </p>
+                    <p class="place_url">
+                        <?php
+                        $mykey_values_place_link= get_post_custom_values('Cсылка на профиль');
+                        foreach ( $mykey_values_place_link as $value ) {
+                            echo $value;
+                        }
+                        ?>
+                    </p>
+                <?php } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </div>
     </section>
 
@@ -218,71 +306,31 @@
         <h3 class="lg_m_b text_left">КОНТАКТЫ</h3>
         <p>Возникли вопросы? Звоните! Пишите! Вам будут рады!</p>
         <ul class="contacts_list clr">
-            <li class="contacts_item">
-                <div class="contacts_img_block">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/contact_1.png" class="contacts_img">
-                </div>
-                <div class="contacts_text_block">
-                    <p>Участие в мероприятии</p>
-                    <p>
-                        <strong>Aлена Поскакарина</strong><br>
-                        <a href="mailto:poskakarina@rcsc.info">poskakarina@rcsc.info</a><br>
-                        тел.  +7 (495) 620 45-11
-                    </p>
-                </div>
-            </li>
-            <li class="contacts_item">
-                <div class="contacts_img_block">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/contact_2.png" class="contacts_img">
-                </div>
-                <div class="contacts_text_block">
-                    <p>Участие в мероприятии</p>
-                    <p>
-                        <strong>Анна Развадовская</strong><br>
-                        <a href="mailto:razvadovskaya@rcsc.info">razvadovskaya@rcsc.info</a><br>
-                        тел.  +7 (495) 620 45-11
-                    </p>
-                </div>
-            </li>
-            <li class="contacts_item">
-                <div class="contacts_img_block">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/contact_3.png" class="contacts_img">
-                </div>
-                <div class="contacts_text_block">
-                    <p>Участие в качестве спикера</p>
-                    <p>
-                        <strong>Олег Овчинников</strong><br>
-                        <a href="mailto:ovchinnikov@rcsc.info">ovchinnikov@rcsc.info</a><br>
-                        тел.  +7 (495) 620 45-11
-                    </p>
-                </div>
-            </li>
-            <li class="contacts_item">
-                <div class="contacts_img_block">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/contact_4.png" class="contacts_img">
-                </div>
-                <div class="contacts_text_block">
-                    <p>PR и СМИ</p>
-                    <p>
-                        <strong>Анна Дрябина</strong><br>
-                        <a href="mailto:dryabina@rcsc.info">dryabina@rcsc.info</a><br>
-                        тел.  +7 (495) 620 45-11
-                    </p>
-                </div>
-            </li>
-            <li class="contacts_item">
-                <div class="contacts_img_block">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/contact_5.png" class="contacts_img">
-                </div>
-                <div class="contacts_text_block">
-                    <p>Участие в качестве партнера</p>
-                    <p>
-                        <strong>Надежда Горбачева</strong><br>
-                        <a href="mailto:gorbacheva@rcsc.info">gorbacheva@rcsc.info</a><br>
-                        тел.  +7 (495) 620 45-11
-                    </p>
-                </div>
-            </li>
+            <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                <?php if ( in_category('contacts') ) { ?>
+                    <li class="contacts_item">
+                        <div class="contacts_img_block">
+                            <?php the_post_thumbnail(array(252, 252), array('class' => 'contacts_img')); ?>
+                        </div>
+                        <div class="contacts_text_block">
+                            <p>
+                                <?php
+                                $mykey_values_post_contact = get_post_custom_values('Должность');
+                                foreach ( $mykey_values_post_contact as $value ) {
+                                    echo $value;
+                                }
+                                ?>
+                            </p>
+                            <p>
+                                <strong><?php $mykey_values_name = get_post_custom_values('Имя'); foreach ( $mykey_values_name as $value ) { echo $value; } ?></strong><br>
+                                <a href="mailto:<?php $mykey_values_email = get_post_custom_values('Email'); foreach ( $mykey_values_email as $value ) { echo $value; } ?>"><?php foreach ( $mykey_values_email as $value ) { echo $value; } ?></a><br>
+                                <span>тел. <?php $mykey_values_phone = get_post_custom_values('Телефон'); foreach ( $mykey_values_phone as $value ) { echo $value; } ?></span>
+                            </p>
+                        </div>
+                    </li>
+                <?php } ?>
+            <?php endwhile; ?>
+            <?php endif; ?>
         </ul>
     </section>
     <footer data-scroll-section="blank" class="footer">

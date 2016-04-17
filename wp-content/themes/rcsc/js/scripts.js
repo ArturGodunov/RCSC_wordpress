@@ -8,6 +8,7 @@
         countdown();
         validation();
         mobileMenu();
+        getPlaceCoord();
     });
 
     $(window).scroll(function(){
@@ -132,13 +133,34 @@
         }
     }
 
+    function getPlaceCoord() {
+        var coord = $('body').data('coord'),
+            cleanCoord;
+
+        cleanCoord = coord.replace(' ', '');
+
+        window.coord_1 = cleanCoord.split(',')[0] || 55.7528;
+        window.coord_2 = cleanCoord.split(',')[1] || 37.6199;
+
+        checkCoord(coord);
+    }
+
+    function checkCoord(coord) {
+        if (coord) {
+            $('#map').removeClass('place_map__notready');
+            window.emptyCoordData = false;
+        } else {
+            window.emptyCoordData = true;
+        }
+    }
+
     /**
      * Google map
      * */
     function initialize() {
         var mapCanvas = document.getElementById('map');
         var mapOptions = {
-            center: new google.maps.LatLng(55.7528, 37.6199),
+            center: new google.maps.LatLng(coord_1, coord_2),
             zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             mapTypeControl: !1,
@@ -150,11 +172,13 @@
         var map = new google.maps.Map(mapCanvas, mapOptions);
         var styles = [{stylers: [{saturation: -100}]}];
         map.setOptions({styles: styles});
-        var marker = new google.maps.Marker({
-            map: map,
-            draggable: !1,
-            position: mapOptions.center
-        });
+        if (!emptyCoordData) {
+            var marker = new google.maps.Marker({
+                map: map,
+                draggable: !1,
+                position: mapOptions.center
+            });
+        }
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 

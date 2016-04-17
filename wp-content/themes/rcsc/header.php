@@ -1,3 +1,14 @@
+<?php
+if ( have_posts() ) : while ( have_posts() ) : the_post();
+if ( in_category('place') ) {
+    $mykey_values_coord = get_post_custom_values('Координаты');
+    foreach ( $mykey_values_coord as $value ) {
+        $bodyData = $value;
+    }
+}
+endwhile;
+endif;
+?>
 <!DOCTYPE html>
 <html lang="ru">
     <head>
@@ -9,4 +20,4 @@
 
         <?php wp_head(); ?>
     </head>
-    <body>
+    <body data-coord="<?php echo $bodyData; ?>">
