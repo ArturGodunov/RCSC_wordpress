@@ -6,7 +6,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 3.2.1
 Tested up to: 4.5
-Stable tag: 2.10.6
+Stable tag: 2.10.7
 
 Saves submitted form data to the database. Export the data to a file or use short codes to display it.
 
@@ -86,6 +86,9 @@ You can always deactivate the plugin without loosing data.
 1. Admin Panel view of submitted form data
 
 == Changelog ==
+
+= 2.10.8 =
+* Improvement: Links to exports and file downloads now redirect to login page when user is not logged in
 
 = 2.10.7 =
 * Bug Fix: Gravity Form integration was not capturing certain date fields

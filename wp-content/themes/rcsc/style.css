@@ -1309,12 +1309,20 @@ form {
   margin: 0 auto;
 }
 
+form .btn{
+  margin-left: 20px;
+}
+
 .input{
   margin-bottom: 20px;
 }
 
 div.wpcf7-mail-sent-ok{
   display: none !important;
+}
+
+div.wpcf7-response-output{
+  color: #fff;
 }
 /* ------------------------------ END Contact form 7 ------------------------*/
 

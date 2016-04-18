@@ -446,7 +446,7 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle implements CFDBDateFormatter {
         $sc->register('cfdb-save-form-maker-post');
     }
 
-    public function ajaxLogin() {
+    public function getCredentialsFromAjaxCall() {
         // Login the user
         $key = 'kx82XcPjq8q8S!xafx%$&7p6';
         $creds = array();
@@ -479,15 +479,24 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle implements CFDBDateFormatter {
             $password = !empty($_REQUEST['user_password']) ? $_REQUEST['user_password'] : null;
         }
 
-        $creds['user_login'] = $user;
-        $creds['user_password'] = $password;
-        $creds['remember'] = !empty($_REQUEST['rememberme']) ? $_REQUEST['rememberme'] : null;
-        $user = wp_signon($creds, false);
-        if (is_wp_error($user)) {
-            echo $user->get_error_message();
-            die;
+        if ($user && $password) {
+            $creds['user_login'] = $user;
+            $creds['user_password'] = $password;
+            $creds['remember'] = !empty($_REQUEST['rememberme']) ? $_REQUEST['rememberme'] : null;
         }
-        wp_set_current_user($user->ID);
+
+        return $creds;
+    }
+
+    public function ajaxLogin() {
+        if (! is_user_logged_in()) {
+            $creds = $this->getCredentialsFromAjaxCall();
+            $user = wp_signon($creds, false);
+            if (is_wp_error($user)) {
+                $this->ajaxRedirectToLogin();
+            }
+            wp_set_current_user($user->ID);
+        }
 
         // User is logged in. Now do the requested action
         if (!empty($_REQUEST['cfdb-action'])) {
@@ -507,13 +516,44 @@ class CF7DBPlugin extends CF7DBPluginLifeCycle implements CFDBDateFormatter {
         die;
     }
 
+    public function ajaxRedirectToLogin() {
+        $url = home_url();
+        $slashPos = strpos($url, '//');
+        $slashPos = strpos($url, '/', $slashPos + 2);
+        if ($slashPos !== false) {
+            $url = substr($url, 0, $slashPos);
+        }
+        $redirectUrl = "$url${_SERVER['REQUEST_URI']}";
+        $loginUrl = wp_login_url($redirectUrl);
+        header("Location: $loginUrl");
+        die();
+    }
+
+    public function ajaxCheckForLoginAndDoRedirect() {
+        if ('Anyone' != $this->getRoleOption('CanSeeSubmitData')) {
+            if (!is_user_logged_in()) {
+                $creds = $this->getCredentialsFromAjaxCall();
+                if (!empty($creds)) {
+                    $user = wp_signon($creds, false);
+                    if (is_wp_error($user)) {
+                        $this->ajaxRedirectToLogin();
+                    }
+                } else {
+                    $this->ajaxRedirectToLogin();
+                }
+            }
+        }
+    }
+
     public function ajaxExport() {
+        $this->ajaxCheckForLoginAndDoRedirect();
         require_once('CF7DBPluginExporter.php');
         CF7DBPluginExporter::doExportFromPost();
         die();
     }
 
     public function ajaxFile() {
+        $this->ajaxCheckForLoginAndDoRedirect();
         require_once('CFDBDie.php');
         if (!$this->canUserDoRoleOption('CanSeeSubmitData') &&
             !$this->canUserDoRoleOption('CanSeeSubmitDataViaShortcode')) {

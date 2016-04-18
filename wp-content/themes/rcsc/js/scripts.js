@@ -15,14 +15,6 @@
         checkSection();
     });
 
-    $(window).load(function () {
-
-    });
-
-    $(window).resize(function () {
-
-    });
-
     function chooseSpeakers() {
         $('.speakers_item_img').on('click', function() {
             $(this).addClass('active').siblings().removeClass('active');
@@ -46,7 +38,7 @@
         var reqSection = $('[data-scroll-section]').filter('[data-scroll-section="' + section + '"]'),
             reqSectionPos = reqSection.offset().top + 1;
         if ($(window).width() < 1024) {
-            reqSectionPos = reqSection.offset().top - 50;
+            reqSectionPos = reqSection.offset().top - 51;
         }
         $('body, html').animate({scrollTop: reqSectionPos}, 500);
     }
@@ -56,6 +48,9 @@
             var topEdge = $(this).offset().top,
                 bottomEdge = topEdge + $(this).height(),
                 wScroll = $(window).scrollTop();
+            if ($(window).width() < 1024) {
+                wScroll += 52;
+            }
             if (topEdge < wScroll && bottomEdge > wScroll) {
                 var currentId = $(this).data('scroll-section'),
                     reqLink = $('.menu').find('[data-scroll-link]').filter('[data-scroll-link="' + currentId + '"]');
