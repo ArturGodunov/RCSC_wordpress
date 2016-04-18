@@ -83,6 +83,15 @@ function custom_colors() {
     echo '<style type="text/css">#wp-admin-bar-new-content, #wp-admin-bar-comments, #collapse-menu, #wp-admin-bar-edit-profile {display: none !important;}</style>';
 }
 
+/**
+ * Redirect to post
+ */
+function admin_default_page() {
+    return '/wp-admin/edit.php';
+}
+
+add_filter('login_redirect', 'admin_default_page');
+
 
 /**
  * Remove some items in toolbar
