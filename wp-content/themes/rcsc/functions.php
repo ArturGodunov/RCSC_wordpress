@@ -47,3 +47,9 @@ add_action('wp_footer', 'add_scripts');
  */
 add_theme_support( 'post-thumbnails' );
 
+/**
+ * Remove some items in toolbar
+ */
+
+
+

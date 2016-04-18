@@ -21,8 +21,13 @@
 
 <footer class="main">
     <header data-scroll-section="top" class="header">
-        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/header_logo.png" alt="RCSC - Российский Совет Торговых Центров" class="header_logo">
-        <h1 class="header_title">SHOPPING CENTER MANAGER’s Congress</h1>
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+            <?php if ( in_category('name-logo') ) { ?>
+                <?php the_post_thumbnail(array(129, 40), array('class' => 'header_logo', 'alt' => 'RCSC - Российский Совет Торговых Центров')); ?>
+                <h1 class="header_title"><?php the_title(); ?></h1>
+            <?php } ?>
+        <?php endwhile; ?>
+        <?php endif; ?>
         <h2 class="header_subtitle">Совершенство менеджмента</h2>
         <div class="header_date"><strong>25-26-27</strong> мая <strong>2016</strong></div>
         <div class="header_time"></div>
