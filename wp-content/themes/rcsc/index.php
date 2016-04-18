@@ -2,7 +2,12 @@
 
 <aside class="aside">
     <a href="" data-scroll-link="top" class="logo">
-        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/logo.png" alt="RCSC - Российский Совет Торговых Центров" class="logo_img">
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+            <?php if ( in_category('name-logo') ) { ?>
+                <?php the_post_thumbnail(array(129, 40), array('class' => 'logo_img', 'alt' => 'RCSC - Российский Совет Торговых Центров')); ?>
+            <?php } ?>
+        <?php endwhile; ?>
+        <?php endif; ?>
     </a>
     <nav class="menu">
         <div class="menu_hamburger"></div>
@@ -21,9 +26,9 @@
 
 <footer class="main">
     <header data-scroll-section="top" class="header">
+        <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/header_logo.png" alt="RCSC - Российский Совет Торговых Центров" class="header_logo">
         <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
             <?php if ( in_category('name-logo') ) { ?>
-                <?php the_post_thumbnail(array(129, 40), array('class' => 'header_logo', 'alt' => 'RCSC - Российский Совет Торговых Центров')); ?>
                 <h1 class="header_title"><?php the_title(); ?></h1>
             <?php } ?>
         <?php endwhile; ?>

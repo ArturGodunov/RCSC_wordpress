@@ -48,8 +48,78 @@ add_action('wp_footer', 'add_scripts');
 add_theme_support( 'post-thumbnails' );
 
 /**
+ * Change logo in login
+ */
+function my_custom_login_logo(){
+    echo '<style type="text/css">h1 a { background-image: url('.get_bloginfo('template_directory').'/images/header_logo.png) !important; background-size: contain !important; width: 100% !important;}</style>';
+}
+add_action('login_head', 'my_custom_login_logo');
+
+/**
+ * Change logo in adminbar
+ */
+add_action('add_admin_bar_menus', 'reset_admin_wplogo');
+function reset_admin_wplogo(  ){
+    remove_action( 'admin_bar_menu', 'wp_admin_bar_wp_menu', 10 ); // remove standard
+
+    add_action( 'admin_bar_menu', 'my_admin_bar_wp_menu', 10 ); // add custom
+}
+function my_admin_bar_wp_menu( $wp_admin_bar ) {
+    $wp_admin_bar->add_menu( array(
+        'id'    => 'wp-logo',
+        'title' => '<img style="max-width:50px; height:auto; margin-top: 8px; " src="'. get_bloginfo('template_directory') .'/images/logo.png" alt="" >',
+        'href'  => home_url('/about/'),
+        'meta'  => array(
+            'title' => 'О моем сайте',
+        ),
+    ) );
+}
+
+/**
+ * Hide some items in admin
+ */
+add_action('admin_head', 'custom_colors');
+function custom_colors() {
+    echo '<style type="text/css">#wp-admin-bar-new-content, #wp-admin-bar-comments, #collapse-menu, #wp-admin-bar-edit-profile {display: none !important;}</style>';
+}
+
+
+/**
  * Remove some items in toolbar
  */
+function remove_menus(){
+    global $menu;
+    $restricted = array(
+        __('Dashboard'),
+        __('Media'),
+        __('Pages'),
+        __('Appearance'),
+        __('Tools'),
+        __('Users'),
+        __('Settings'),
+        __('Comments'),
+        __('Plugins'),
+        __('Contact')
+    );
+    end ($menu);
+    while (prev($menu)){
+        $value = explode(' ', $menu[key($menu)][0]);
+        if( in_array( ($value[0] != NULL ? $value[0] : "") , $restricted ) ){
+            unset($menu[key($menu)]);
+        }
+    }
+}
+add_action('admin_menu', 'remove_menus');
+
+/**
+ * Remove update
+ */
+if( !current_user_can( 'edit_users' ) ){
+    add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );
+    add_filter( 'pre_option_update_core', create_function( '$a', "return null;" ) );
+    // for 3.0+
+    add_filter( 'pre_site_transient_update_core', create_function( '$a', "return null;" ) );
+}
 
 
 
