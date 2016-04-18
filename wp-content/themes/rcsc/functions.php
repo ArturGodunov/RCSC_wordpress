@@ -68,7 +68,7 @@ function my_admin_bar_wp_menu( $wp_admin_bar ) {
     $wp_admin_bar->add_menu( array(
         'id'    => 'wp-logo',
         'title' => '<img style="max-width:50px; height:auto; margin-top: 8px; " src="'. get_bloginfo('template_directory') .'/images/logo.png" alt="" >',
-        'href'  => home_url('/about/'),
+        'href'  => home_url(),
         'meta'  => array(
             'title' => 'О моем сайте',
         ),
@@ -86,11 +86,10 @@ function custom_colors() {
 /**
  * Redirect to post
  */
-function admin_default_page() {
-    return '/wp-admin/edit.php';
+add_action('load-index.php', 'dashboard_Redirect');
+function dashboard_Redirect(){
+    wp_redirect(admin_url('/edit.php'));
 }
-
-add_filter('login_redirect', 'admin_default_page');
 
 
 /**
